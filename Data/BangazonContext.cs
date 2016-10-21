@@ -13,6 +13,7 @@ namespace BangazonWeb.Data
         public DbSet<Product> Product { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<PaymentType> PaymentType { get; set; }
+        public DbSet<ProductType> ProductType { get; set; }
         public DbSet<LineItem> LineItem { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,6 +23,10 @@ namespace BangazonWeb.Data
                 .HasDefaultValueSql("strftime('%Y-%m-%d %H:%M:%S')");
 
             modelBuilder.Entity<Order>()
+                .Property(b => b.DateCreated)
+                .HasDefaultValueSql("strftime('%Y-%m-%d %H:%M:%S')");
+
+            modelBuilder.Entity<Product>()
                 .Property(b => b.DateCreated)
                 .HasDefaultValueSql("strftime('%Y-%m-%d %H:%M:%S')");
 

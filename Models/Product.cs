@@ -22,11 +22,15 @@ namespace Bangazon.Models
     public string Title { get; set; }
 
     [Required]
+    [DisplayFormat(DataFormatString = "{0:C}")]
     public double Price { get; set; }
 
     [Required]
     public int CustomerId { get; set; }
     public Customer Customer { get; set; }
+    [Required]
+    public int ProductTypeId { get; set; }
+    public ProductType ProductType { get; set; }
     
     public ICollection<LineItem> LineItems;
   }

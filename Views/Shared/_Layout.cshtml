@@ -26,12 +26,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Bangazon!</a>
+                <a asp-area="" asp-controller="Products" asp-action="Index" class="navbar-brand">Bangazon!</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Product Types</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">Sell Something</a></li>
+                    <li><a asp-area="" asp-controller="Products" asp-action="Types">Product Types</a></li>
+                    <li><a asp-area="" asp-controller="Products" asp-action="Create">Sell Something</a></li>
                 </ul>
             </div>
         </div>
@@ -49,7 +49,7 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
-    <environment names="Staging,Production">
+    <environment names="Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.3.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery">
