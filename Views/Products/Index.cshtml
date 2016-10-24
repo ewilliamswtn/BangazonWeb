@@ -1,4 +1,4 @@
-@model IEnumerable<Bangazon.Models.Product>
+@model BangazonWeb.ViewModels.ProductList
 
 @{
     ViewData["Title"] = "Product Listing";
@@ -6,7 +6,7 @@
 
 <h2>@ViewData["Title"]</h2>
 
-@foreach (var product in Model)
+@foreach (var product in Model.Products)
 {
     <div class="row top-buffer">
         <div class="col-md-6">@Html.DisplayFor(modelItem => product.Description)</div>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bangazon.Models;
 using BangazonWeb.Data;
+using BangazonWeb.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,9 +20,20 @@ namespace BangazonWeb.Controllers
             context = ctx;
         }
 
+        public ActionResult Menu() {
+            MenuViewModel model = new MenuViewModel();
+
+            return PartialView(model);
+        }
+
         public async Task<IActionResult> Index()
         {
-            return View(await context.Product.ToListAsync());
+            // Create new instance of the view model
+            ProductList model = new ProductList();
+
+            // Set the properties of the view model
+            model.Products = await context.Product.ToListAsync(); 
+            return View(model);
         }
 
         public async Task<IActionResult> Detail([FromRoute]int? id)
@@ -32,17 +44,21 @@ namespace BangazonWeb.Controllers
                 return NotFound();
             }
 
-            var product = await context.Product
+            // Create new instance of view model
+            ProductDetail model = new ProductDetail();
+
+            // Set the `Product` property of the view model
+            model.Product = await context.Product
                     .Include(prod => prod.Customer)
                     .SingleOrDefaultAsync(prod => prod.ProductId == id);
 
             // If product not found, return 404
-            if (product == null)
+            if (model.Product == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(model);
         }
 
         [HttpGet]
@@ -80,7 +96,12 @@ namespace BangazonWeb.Controllers
             return View(product);
         }
 
-        public IActionResult Type([FromRoute]int id)
+        public async Task<IActionResult> Types()
+        {
+            return View(await context.ProductType.ToListAsync());
+        }
+
+        public IActionResult Types([FromRoute]int id)
         {
             ViewData["Message"] = "Your contact page.";
 
