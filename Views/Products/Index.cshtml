@@ -4,11 +4,11 @@
     ViewData["Title"] = "Product Listing";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2 class="top-buffer">@ViewData["Title"]</h2>
 
 @foreach (var product in Model.Products)
 {
-    <div class="row top-buffer">
+    <div class="row">
         <div class="col-md-6">@Html.DisplayFor(modelItem => product.Description)</div>
         <div class="col-md-2">@Html.DisplayFor(modelItem => product.DateCreated)</div>
         <div class="col-md-2">@Html.DisplayFor(modelItem => product.Price)</div>

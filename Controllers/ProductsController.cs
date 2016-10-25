@@ -14,14 +14,13 @@ namespace BangazonWeb.Controllers
     public class ProductsController : Controller
     {
         private BangazonContext context;
-
         public ProductsController(BangazonContext ctx)
         {
             context = ctx;
         }
 
         public ActionResult Menu() {
-            MenuViewModel model = new MenuViewModel();
+            MenuViewModel model = new MenuViewModel(context);
 
             return PartialView(model);
         }
@@ -29,7 +28,7 @@ namespace BangazonWeb.Controllers
         public async Task<IActionResult> Index()
         {
             // Create new instance of the view model
-            ProductList model = new ProductList();
+            ProductList model = new ProductList(context);
 
             // Set the properties of the view model
             model.Products = await context.Product.ToListAsync(); 
@@ -45,7 +44,7 @@ namespace BangazonWeb.Controllers
             }
 
             // Create new instance of view model
-            ProductDetail model = new ProductDetail();
+            ProductDetail model = new ProductDetail(context);
 
             // Set the `Product` property of the view model
             model.Product = await context.Product
