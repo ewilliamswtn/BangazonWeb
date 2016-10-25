@@ -9,6 +9,7 @@ namespace BangazonWeb.Data
 		public static ActiveCustomer Instance
 		{
 			get {
+				// First time an instance of this class is requested
 				if (_instance == null) {
 					_instance = new ActiveCustomer ();
 				}

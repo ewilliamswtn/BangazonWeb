@@ -4,10 +4,13 @@ $(document).ready(function () {
     $.ajax({
       url: "/Customer/Activate",
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       data: {
         "CustomerId": $(this).val() 
       }
     });
-    location.reload();
+    // location.reload();
   });
 });
