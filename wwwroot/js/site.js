@@ -2,15 +2,12 @@
 $(document).ready(function () {
   $("#CustomerId").on("change", function (e) {
     $.ajax({
-      url: "/Customer/Activate",
+      url: `/Customer/Activate/${$(this).val()}`,
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      data: {
-        "CustomerId": $(this).val() 
-      }
+      dataType: "json",
+      contentType: 'application/json; charset=utf-8'
+    }).done(() => {
+      location.reload();
     });
-    // location.reload();
   });
 });

@@ -1,0 +1,10 @@
+<ul class="nav navbar-nav navbar-right">
+    <li>
+        <div>
+            { @Html.DropDownList("CustomerId") }
+        </div>
+        <a asp-area="" asp-controller="Customer" asp-action="Create">
+          @Model.ChosenCustomer.FirstName @Model.ChosenCustomer.LastName
+        </a>
+    </li>
+</ul>

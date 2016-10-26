@@ -35,18 +35,7 @@
                     <li><a asp-area="" asp-controller="ProductTypes" asp-action="Index">Product Types</a></li>
                     <li><a asp-area="" asp-controller="Products" asp-action="Create">Sell Something</a></li>                    
                 </ul>
-
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <div>
-                            {
-                                @Html.DropDownList("CustomerId")
-                            }
-                        </div>
-                        <a asp-area="" asp-controller="Customer" asp-action="Create">@{ Html.RenderPartial("Menu"); } </a>
-                    </li>
-                </ul>
-
+                @{ Html.RenderPartial("ActiveCustomerComponent"); }
             </div>
         </div>
     </div>

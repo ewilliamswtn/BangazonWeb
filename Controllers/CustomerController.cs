@@ -1,9 +1,7 @@
 using System.Linq;
-using System.Threading.Tasks;
 using BangazonWeb.Data;
 using BangazonWeb.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace BangazonWeb.Controllers
 {
@@ -22,23 +20,21 @@ namespace BangazonWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Activate([FromBody]int CustomerId)
+        public IActionResult Activate([FromRoute]int id)
         {
-          var customer = context.Customer.SingleOrDefault(c => c.CustomerId == CustomerId);
+            // Find the corresponding customer in the DB
+            var customer = context.Customer.Single(c => c.CustomerId == id);
 
-          if (customer == null)
-          {
-            return NotFound();
-          }
+            // Return 404 if not found
+            if (customer == null)
+            {
+                return NotFound();
+            }
 
-          ActiveCustomer.Instance.Customer = customer;
+            // Set the active customer to the selected on
+            ActiveCustomer.Instance.Customer = customer;
 
-
-
-
-
-          string json = "{'result': 'true'}";
-          return new ContentResult { Content = json, ContentType = "application/json" };
+            return Json(customer);
         }
     }
 }

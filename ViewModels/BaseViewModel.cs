@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bangazon.Models;
@@ -8,7 +9,8 @@ namespace BangazonWeb.ViewModels
 {
   public class BaseViewModel
   {
-    public IEnumerable<SelectListItem> CustomerId { get; set; }
+    public List<SelectListItem> CustomerId { get; set; }
+    public IEnumerable<Customer> Customers { get; set; }
     private BangazonContext context;
     private ActiveCustomer singleton = ActiveCustomer.Instance;
     public Customer ChosenCustomer 
@@ -48,7 +50,16 @@ namespace BangazonWeb.ViewModels
             .Select(li => new SelectListItem { 
                 Text = $"{li.FirstName} {li.LastName}",
                 Value = li.CustomerId.ToString()
+            }).ToList();
+
+        this.CustomerId.Insert(0, new SelectListItem { 
+                Text = "Choose customer...",
+                Value = "0"
             });
+        
+
+        this.Customers = context.Customer.OrderBy(l => l.LastName);
+            
     }
     public BaseViewModel() { }
   }
