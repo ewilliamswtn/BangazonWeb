@@ -44,6 +44,7 @@ namespace BangazonWeb.ViewModels
     public BaseViewModel(BangazonContext ctx)
     {
         context = ctx;
+
         this.CustomerId = context.Customer
             .OrderBy(l => l.LastName)
             .AsEnumerable()
@@ -55,11 +56,7 @@ namespace BangazonWeb.ViewModels
         this.CustomerId.Insert(0, new SelectListItem { 
                 Text = "Choose customer...",
                 Value = "0"
-            });
-        
-
-        this.Customers = context.Customer.OrderBy(l => l.LastName);
-            
+            });            
     }
     public BaseViewModel() { }
   }

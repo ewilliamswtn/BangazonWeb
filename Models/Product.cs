@@ -28,8 +28,12 @@ namespace Bangazon.Models
     [Required]
     public int CustomerId { get; set; }
     public Customer Customer { get; set; }
+
     [Required]
+    [Display(Name="Category")]
     public int ProductTypeId { get; set; }
+    
+    [Display(Name="Category")]
     public ProductType ProductType { get; set; }
     
     public ICollection<LineItem> LineItems;

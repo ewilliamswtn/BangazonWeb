@@ -57,29 +57,15 @@ namespace BangazonWeb.Controllers
                 return NotFound();
             }
 
-            return View(model);
+            return View(model); 
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            ViewData["ProductTypeId"] = context.ProductType
-                                       .OrderBy(l => l.Label)
-                                       .AsEnumerable()
-                                       .Select(li => new SelectListItem { 
-                                           Text = li.Label,
-                                           Value = li.ProductTypeId.ToString()
-                                        });
+            CustomerFormViewModel model = new CustomerFormViewModel(context);
 
-            ViewData["CustomerId"] = context.Customer
-                                       .OrderBy(l => l.LastName)
-                                       .AsEnumerable()
-                                       .Select(li => new SelectListItem { 
-                                           Text = $"{li.FirstName} {li.LastName}",
-                                           Value = li.CustomerId.ToString()
-                                        });
-
-            return View(); 
+            return View(model); 
         }
 
         [HttpPost]
