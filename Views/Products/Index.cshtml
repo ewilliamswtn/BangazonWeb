@@ -1,19 +1,19 @@
-@model IEnumerable<Bangazon.Models.Product>
+@model BangazonWeb.ViewModels.ProductList
 
 @{
     ViewData["Title"] = "Product Listing";
 }
 
-<p>
-    <a asp-action="Create">Sell Something</a>
-</p>
+<h2 class="top-buffer">@ViewData["Title"]</h2>
 
-@foreach (var item in Model)
+@foreach (var product in Model.Products)
 {
     <div class="row">
-        <div class="col-md-3">@Html.DisplayFor(modelItem => item.Description)</div>
-        <div class="col-md-3">@Html.DisplayFor(modelItem => item.Price)</div>
-        <div class="col-md-3">@Html.DisplayFor(modelItem => item.DateCreated)</div>
-        <div class="col-md-3"><a asp-action="Detail" asp-route-id="@item.ProductId">Details</a></div>
+        <div class="col-md-6">@Html.DisplayFor(modelItem => product.Description)</div>
+        <div class="col-md-2">@Html.DisplayFor(modelItem => product.DateCreated)</div>
+        <div class="col-md-2">@Html.DisplayFor(modelItem => product.Price)</div>
+        <div class="col-md-2">
+            <a asp-action="Detail" asp-route-id="@product.ProductId">Details</a>
+        </div>
     </div>
 }

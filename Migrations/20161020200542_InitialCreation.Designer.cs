@@ -8,7 +8,7 @@ using BangazonWeb.Data;
 namespace BangazonWeb.Migrations
 {
     [DbContext(typeof(BangazonContext))]
-    [Migration("20161020040042_InitialCreation")]
+    [Migration("20161020200542_InitialCreation")]
     partial class InitialCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -114,13 +114,17 @@ namespace BangazonWeb.Migrations
 
                     b.Property<int>("CustomerId");
 
-                    b.Property<DateTime>("DateCreated");
+                    b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("strftime('%Y-%m-%d %H:%M:%S')");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasAnnotation("MaxLength", 255);
 
                     b.Property<double>("Price");
+
+                    b.Property<int>("ProductTypeId");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -130,7 +134,23 @@ namespace BangazonWeb.Migrations
 
                     b.HasIndex("CustomerId");
 
+                    b.HasIndex("ProductTypeId");
+
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("Bangazon.Models.ProductType", b =>
+                {
+                    b.Property<int>("ProductTypeId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 255);
+
+                    b.HasKey("ProductTypeId");
+
+                    b.ToTable("ProductType");
                 });
 
             modelBuilder.Entity("Bangazon.Models.LineItem", b =>
@@ -171,6 +191,11 @@ namespace BangazonWeb.Migrations
                     b.HasOne("Bangazon.Models.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Bangazon.Models.ProductType", "ProductType")
+                        .WithMany()
+                        .HasForeignKey("ProductTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
         }

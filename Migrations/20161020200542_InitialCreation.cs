@@ -25,6 +25,19 @@ namespace BangazonWeb.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProductType",
+                columns: table => new
+                {
+                    ProductTypeId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    Label = table.Column<string>(maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductType", x => x.ProductTypeId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PaymentType",
                 columns: table => new
                 {
@@ -53,9 +66,10 @@ namespace BangazonWeb.Migrations
                     ProductId = table.Column<int>(nullable: false)
                         .Annotation("Autoincrement", true),
                     CustomerId = table.Column<int>(nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false, defaultValueSql: "strftime('%Y-%m-%d %H:%M:%S')"),
                     Description = table.Column<string>(maxLength: 255, nullable: false),
                     Price = table.Column<double>(nullable: false),
+                    ProductTypeId = table.Column<int>(nullable: false),
                     Title = table.Column<string>(maxLength: 55, nullable: false)
                 },
                 constraints: table =>
@@ -66,6 +80,12 @@ namespace BangazonWeb.Migrations
                         column: x => x.CustomerId,
                         principalTable: "Customer",
                         principalColumn: "CustomerId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Product_ProductType_ProductTypeId",
+                        column: x => x.ProductTypeId,
+                        principalTable: "ProductType",
+                        principalColumn: "ProductTypeId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -152,6 +172,11 @@ namespace BangazonWeb.Migrations
                 name: "IX_Product_CustomerId",
                 table: "Product",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Product_ProductTypeId",
+                table: "Product",
+                column: "ProductTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -167,6 +192,9 @@ namespace BangazonWeb.Migrations
 
             migrationBuilder.DropTable(
                 name: "PaymentType");
+
+            migrationBuilder.DropTable(
+                name: "ProductType");
 
             migrationBuilder.DropTable(
                 name: "Customer");
