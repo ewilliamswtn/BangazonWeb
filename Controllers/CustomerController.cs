@@ -7,6 +7,7 @@ namespace BangazonWeb.Controllers
 {
     public class CustomerController : Controller
     {
+        //Initializing the Databse entities as an object of C# program
         private BangazonContext context;
         public CustomerController(BangazonContext ctx)
         {
